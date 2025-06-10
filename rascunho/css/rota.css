@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.5;
+}
+
+.navbar-brand img {
+    border-radius: 10px !important;
+}
+
+section {
+    height: 100%;
+    width: 100%;
+    min-height: calc(100vh - 70px - 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.rota {
+    display: flex;
+    flex-direction: column;
+}
+
+.rota .input {
+    background-color: #8f8e8e;
+    color: black;
+}
+
+.input i{
+    padding-left: 10px;
+}
+
+.fav {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.fav .inpfav {
+    background-color: #8f8e8e;
+    color: black;
+}
+
+.inpfav i{
+    padding-left: 10px;
+}
+
+input {
+    background-color: #8f8e8e;
+    border: none;
+}
+
+input::placeholder {
+    color: black;
+    padding-left: 10px;
+}
+
+#map {
+    width: 20vw;
+    height: 20vw;
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 20%;
+    overflow: hidden;
+}
