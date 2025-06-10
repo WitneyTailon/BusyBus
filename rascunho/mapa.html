@@ -1,0 +1,199 @@
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/mapa.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="images/icon.png" alt="Logo" width="45" height="45" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                </ul>
+                <form class="d-flex mt-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                <button class="btn btn-success" type="submit">Search</button>
+                </form>
+            </div>
+            </div>
+        </div>
+        </nav>
+    </header>
+    <section>
+        <div id="map"></div>
+    </section>
+    <footer>
+        <div class="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input id="addressInput" class="box" placeholder="Olá, busque um ônibus" type="text">
+        </div>
+        <div id="addressReset" class="location-button">
+                <i class="fa-solid fa-location-dot"></i>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <script>
+        let map;
+    let marker;
+    let currentLocation = null; // Armazenará a localização atual
+    
+    function initMap() {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            currentLocation = { lat, lng }; // Armazena a localização
+            
+            map = L.map('map').setView([lat, lng], 15);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            
+            updateMarker(lat, lng, 'Sua localização atual');
+            
+            setupSearch();
+            setupReturnButton(); // Configura o botão de retorno
+        }, (error) => {
+            console.error("Erro ao obter localização:", error);
+            const defaultLat = -23.5505;
+            const defaultLng = -46.6333;
+            
+            map = L.map('map').setView([defaultLat, defaultLng], 15);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            
+            setupSearch();
+            setupReturnButton();
+        });
+    }
+    
+    function updateMarker(lat, lng, popupText) {
+        if (marker) {
+            map.removeLayer(marker);
+        }
+        marker = L.marker([lat, lng]).addTo(map)
+            .bindPopup(popupText)
+            .openPopup();
+    }
+    
+    function setupReturnButton() {
+        const returnButton = document.getElementById('addressReset');
+        const addressInput = document.getElementById('addressInput');
+        
+        returnButton.addEventListener('click', () => {
+            addressInput.value = '';
+            if (currentLocation) {
+                map.setView([currentLocation.lat, currentLocation.lng], 15);
+                updateMarker(currentLocation.lat, currentLocation.lng, 'Sua localização atual');
+            } else {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    currentLocation = { lat, lng };
+                    
+                    map.setView([lat, lng], 15);
+                    updateMarker(lat, lng, 'Sua localização atual');
+                }, (error) => {
+                    alert("Não foi possível obter sua localização atual.");
+                });
+            }
+        });
+    }
+        
+        // Configura o evento de busca no input
+        function setupSearch() {
+            const addressInput = document.getElementById('addressInput');
+            let timeoutId;
+            
+            addressInput.addEventListener('input', function(e) {
+                clearTimeout(timeoutId);
+                
+                // Usa um timeout para evitar muitas requisições enquanto o usuário digita
+                timeoutId = setTimeout(() => {
+                    const address = e.target.value.trim();
+                    if (address.length >= 3) { // Só busca se tiver pelo menos 3 caracteres
+                        searchAddress(address);
+                    }
+                }, 400); // Aguarda 400ms após a última digitação
+            });
+            
+            // Também pode ser adicionado um evento para quando o usuário pressionar Enter
+            addressInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const address = e.target.value.trim();
+                    if (address.length > 0) {
+                        searchAddress(address);
+                    }
+                }
+            });
+        }
+        
+        // Faz a busca do endereço usando Nominatim (OpenStreetMap)
+        function searchAddress(address) {
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        const firstResult = data[0];
+                        const lat = parseFloat(firstResult.lat);
+                        const lon = parseFloat(firstResult.lon);
+                        
+                        // Atualiza o mapa
+                        map.setView([lat, lon], 15);
+                        
+                        // Remove o marcador anterior se existir
+                        if (marker) {
+                            map.removeLayer(marker);
+                        }
+                        
+                        // Adiciona novo marcador
+                        marker = L.marker([lat, lon]).addTo(map)
+                            .bindPopup(firstResult.display_name)
+                            .openPopup();
+                    } else {
+                        alert("Endereço não encontrado. Tente ser mais específico.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro na busca de endereço:", error);
+                    alert("Ocorreu um erro ao buscar o endereço.");
+                });
+        }
+        
+        // Inicializa o mapa quando a página carregar
+        window.onload = initMap;
+    </script>
+</body>
+</html>
