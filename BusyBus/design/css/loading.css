@@ -1,0 +1,60 @@
+    body {
+      background-color: #8f8e8e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    body.load {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .overLoad {
+        position: absolute;
+        background-color: #8f8e8e;
+        opacity: 0.8;
+        width: 100%;
+        height: 100%;
+        transition: all 0.5s;
+    }
+
+    .loading {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 100%;
+        height: 100%;
+        transition: all 0.5s;
+    }
+
+    .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #1c2120;
+      animation: bounce 0.6s infinite ease-in-out;
+    }
+
+    .dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes bounce {
+      0%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-20px);
+      }
+    }

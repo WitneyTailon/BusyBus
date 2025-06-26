@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+}
+
+body {
+    width: 100%;
+    height: 100dvh;
+    background-color: #1c2120;
+    position: relative;
+}
+
+.conteinerBanner {
+    width: 100vw;
+    height: clamp(30vh, 40vh, 45vh);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.bannerLogin {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.bannerLogin::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../imgs/bannerlogin.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: 0;
+}
+
+.bannerLogin > * {
+    position: relative;
+    z-index: 1;
+}
+
+.flexBanner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconLogin {
+    width: clamp(70px, 100px, 110px);
+    height: clamp(70px, 100px, 110px);
+    background-image: url("../imgs/busyBusIcon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 20px;
+    margin-bottom: clamp(40px, 10vh, 80px);
+}
+
+.conteinerForm {
+    width: 100%;
+    min-height: clamp(60vh, 70vh, 80vh);
+    padding: clamp(20px, 4vh, 40px) 10px clamp(20px, 5vh, 30px) 20px;
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 0 60px 0 0;
+    z-index: 999;
+}
+
+.formLogin {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(20px, 3vh, 40px) 10px clamp(25px, 5vh, 40px) 10px;
+}
+
+.formHeader {
+    margin-bottom: clamp(20px, 5vh, 30px);
+}
+
+.formHeader h1 {
+    font-size: clamp(40px, 5vw, 50px);
+    font-weight: bold;
+    color: #1c2120;
+    text-align: center;
+}
+
+.formHeader p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(14px, 1.8vh, 16px);
+    color: #8f8e8e;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form .row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 20px;
+    width: 75vw;
+}
+
+.row label {
+    font-family: 'DM Sans', sans-serif;
+    text-transform: uppercase;
+    font-size: clamp(14px, 1.8vh, 16px);
+    font-weight: bold;
+    color: #504f4f;
+    margin-left: 5px;
+}
+
+input {
+    font-size: 14px;
+}
+
+.row .inputDefault {
+    width: 100%;
+    height: clamp(38px, 6vh, 50px);
+}
+
+.inputDefault svg {
+    display: none;
+}
+
+.inputDefault p {
+    display: none;
+}
+
+.row .inputError {
+    width: 100%;
+    height: clamp(38px, 6vh, 50px);
+    position: relative;
+}
+
+.row input:focus {
+    border: 1px solid #1c2120;
+    outline: none;
+}
+
+.inputDefault input {
+    width: 100%;
+    background-color: #cfcdcd;
+    color: #1c2120;
+    height: clamp(38px, 6vh, 50px);
+    border: none;
+    border-radius: 10px;
+    box-shadow: none;
+    padding: 5px 15px;
+    transition: all 500ms;
+}
+
+.inputError input {
+    width: 100%;
+    border: 1px solid #ed1c24;
+    background-color: #cfcdcd;
+    color: #ed1c24;
+    height: clamp(38px, 6vh, 50px);
+    border-radius: 10px;
+    box-shadow: none;
+    padding: 5px 30px 5px 15px;
+    transition: all 500ms;
+}
+
+.inputError svg {
+    position: absolute;
+    width: clamp(20px, 3.5vh, 25px);
+    fill: red;
+    top: clamp(7px, 1vh, 10px);
+    right: 10px;
+}
+
+.inputError p {
+    font-size: clamp(11px, 2vw, 13px);
+    color: #ed1c24;
+    text-align: left;
+    margin: 5px 0 0 3px;
+}
+
+
+button {
+    width: 100%;
+    height: clamp(42px, 6vh, 50px);
+    background-color: #1c2120;
+    font-size: clamp(15px, 1.8vh, 16px);
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 
+              0 2px 4px rgba(255, 255, 255, 0.1) inset;
+    transition: all 0.3s ease;
+}
+
+.help {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.help a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(14px, 1.8vh, 16px);
+    color: #8f8e8e;
+    text-decoration: none;
+}
+
+

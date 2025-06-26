@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+}
+
+body {
+    width: 100%;
+    height: 100dvh;
+    background-color: #1c2120;
+    position: relative;
+}
+
+.backArrow {
+    position: absolute;
+    margin: 10px 0 0 5px;
+    width: clamp(40px, 5vw, 60px);
+    height: clamp(50px, 7vh, 70px);
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.backArrow svg {
+    margin: 5px 0 0 10px;
+    fill: white;
+}
+
+a:active {
+    background-color: transparent;
+}
+
+.conteinerBanner {
+    background-image: url("../imgs/bannerCreateAcc.svg");
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: clamp(20vh, 30vh, 35vh);
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.conteinerForm {
+    width: 100%;
+    min-height: clamp(60vh, 75vh, 80vh);
+    padding: clamp(15px, 2.5vh, 20px) 10px clamp(25px, 5vh, 30px) 20px;
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 60px 0 0 0;
+    z-index: 999;
+}
+
+.formLogin {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(15px, 3vh, 20px) 10px clamp(25px, 5vh, 40px) 10px;
+}
+
+.formHeader {
+    margin-bottom: clamp(25px, 5vh, 40px);
+}
+
+.formHeader h1 {
+    font-size: clamp(30px, 5vw, 40px);
+    font-weight: bold;
+    color: #1c2120;
+    text-align: center;
+}
+
+.form .row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 20px;
+    width: 75vw;
+}
+
+.row label {
+    font-family: 'DM Sans', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #504f4f;
+    margin-left: 5px;
+}
+
+.row input {
+    background-color: #cfcdcd;
+    height: clamp(38px, 5.5vh, 45px);
+    font-size: 14px;
+    color: #1c2120;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    transition: all 500ms;
+}
+
+.row .inputDefault {
+    width: 100%;
+    height: clamp(38px, 6vh, 50px);
+}
+
+.inputDefault svg {
+    display: none;
+}
+
+.inputDefault p {
+    display: none;
+}
+
+.row .inputError {
+    width: 100%;
+    height: clamp(38px, 6vh, 50px);
+    position: relative;
+}
+
+.row input:focus {
+    border: 1px solid #1c2120;
+    outline: none;
+}
+
+.inputDefault input {
+    width: 100%;
+    background-color: #cfcdcd;
+    color: #1c2120;
+    height: clamp(38px, 6vh, 50px);
+    border: none;
+    border-radius: 10px;
+    box-shadow: none;
+    padding: 5px 15px;
+    transition: all 500ms;
+}
+
+.inputError input {
+    width: 100%;
+    border: 1px solid #ed1c24;
+    background-color: #cfcdcd;
+    color: #ed1c24;
+    height: clamp(38px, 6vh, 50px);
+    border-radius: 10px;
+    box-shadow: none;
+    padding: 5px 30px 5px 15px;
+    transition: all 500ms;
+}
+
+.inputError svg {
+    position: absolute;
+    width: clamp(20px, 3.5vh, 25px);
+    fill: red;
+    top: clamp(7px, 1vh, 10px);
+    right: 10px;
+}
+
+.inputError p {
+    font-size: clamp(11px, 2vw, 13px);
+    color: #ed1c24;
+    text-align: right;
+    margin: 5px 0 0 3px;
+}
+
+button {
+    width: 100%;
+    height: clamp(42px, 6vh, 50px);
+    background-color: #1c2120;
+    font-size: clamp(15px, 1.8vh, 16px);
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: none;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 
+              0 2px 4px rgba(255, 255, 255, 0.1) inset;
+    transition: all 0.3s ease;
+}
+
+/* Esconde inicialmente */
+body.default .overLoad,
+body.default .loading {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    pointer-events: none; /* impede clique */
+}
+
+/* Quando ativa com body.load */
+body.load .overLoad,
+body.load .loading {
+    opacity: 0.8;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Estilo da camada escura */
+body.load .overLoad {
+    position: absolute;
+    background-color: #8f8e8e;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+
+/* Estilo do conteúdo central (ex: animação de loading) */
+body.load .loading {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+}
+
+.dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #1c2120;
+    animation: bounce 0.6s infinite ease-in-out;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% {
+    transform: translateY(0);
+    }
+    40% {
+    transform: translateY(-20px);
+    }
+}
